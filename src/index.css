@@ -1,0 +1,12 @@
+#app {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+body {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  min-width: 1060px;
+  background: rgba(250, 176, 0, 0.1);
+}
