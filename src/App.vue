@@ -1,9 +1,9 @@
 <template>
-  <img alt="PORRONG logo" src="./assets/logo.svg">
+  <router-view/>
 </template>
 
 <script>
+export default {
+  name: 'App'
+}
 </script>
-
-<style>
-</style>
