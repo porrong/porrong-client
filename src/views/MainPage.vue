@@ -7,18 +7,34 @@
       <p>탈퇴하기</p>
     </div>
     <div class="itemContainer">
-      <ItemBox v-for="data in 10" :key="data" />
+      <ItemBox v-for="data in 10" :key="data">
+        <WriteLetterModal/>
+      </ItemBox>
     </div>
   </div>
+  <write-letter-modal />
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
 import ItemBox from "../components/ItemBox.vue";
+import WriteLetterModal from "../components/WriteLetterModal.vue";
 
 export default {
   components: {
     ItemBox,
+    WriteLetterModal
   },
+  computed: {
+    ...mapState({
+      'isShowModal' : true
+    })
+  },
+  methos: {
+    ...mapMutations({
+      SET_OPEN_MODAL: 'SET_OPEN_MODAL'
+    })
+  }
 };
 </script>
 

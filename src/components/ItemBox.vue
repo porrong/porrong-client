@@ -1,8 +1,14 @@
 <template>
-  <div class="item_box" />
+  <div class="item_box" @click.prevent="SET_OPEN_MODAL(true)"/>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+  export default {
+    methods: {
+      ...mapMutations(['SET_OPEN_MODAL'])
+    }
+  }
 </script>
 
 <style>
@@ -12,5 +18,6 @@
 
   background: rgba(255, 213, 3, 0.2);
   border-radius: 10px;
+  cursor: pointer;
 }
 </style>
