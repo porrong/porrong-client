@@ -22,6 +22,18 @@
               </div>
             </div>
           </div>
+          <div class = "button_container">
+            <div class = "button cancel" @click.prevent="SET_OPEN_MODAL(false)">
+              <div class = "button_text">
+                <p>작성 취소</p>
+              </div>
+            </div>
+            <div class = "button finish">
+              <div class = "button_text" @click="btn_click">
+                <p>작성 완료</p>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </transition>
@@ -35,22 +47,27 @@ export default ({
     ...mapState(['isShowModal'])
   },
   methods: {
-    ...mapMutations(['SET_OPEN_MODAL'])
+    ...mapMutations(['SET_OPEN_MODAL']),
+    btn_click: function() {
+      alert('편지 작성이 완료되었습니다.')
+      this.$router.go()
+    }
   }
 })
 </script>
 
 
 <style>
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+}
 #letter_box {
   width: 657px;
   height: 502px;
-
-  position: absolute;
-  top: 57%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
+  position: relative;
   background: #FFEDC3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
@@ -67,7 +84,9 @@ export default ({
   font-size: 13px;
 
   color: #000000;
-}
+
+  position: relative;
+  }
 textarea {
   width: 642px;
   height: 290px;
@@ -126,5 +145,32 @@ textarea::-webkit-scrollbar-thumb {
 }
 #open_date_box {
   width: 101px;
+}
+.button_container {
+  display: flex;
+  gap: 30px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.button {
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(250, 176, 0, 0.3);
+  cursor: pointer;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.button_text {
+  text-align: center;
+  font-family: 'Red Hat Mono';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+
+  color: #B47F00;
 }
 </style>
