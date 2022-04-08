@@ -5,7 +5,7 @@
           <div class = "text">
             <div id = "message">
               <p>YOUR MESSAGE:</p>
-              <textarea placeholder="편지를 작성해 주세요" maxlength="16000"/>
+              <textarea class="textarea" placeholder="편지를 작성해 주세요" maxlength="16000"/>
             </div>
             <div class = "add_info">
               <div id = "dear">
@@ -42,6 +42,12 @@
 <script>
 import { mapMutations, mapState } from 'vuex';
 
+const textarea = document.getElementById('textarea');
+const text_box = document.getElementById('text_box');
+const dear_box = document.getElementById('dear_box');
+const open_date_box = document.getElementById('open_date_box');
+
+
 export default ({
   computed: {
     ...mapState(['isShowModal'])
@@ -49,8 +55,12 @@ export default ({
   methods: {
     ...mapMutations(['SET_OPEN_MODAL']),
     btn_click: function() {
-      alert('편지 작성이 완료되었습니다.')
-      this.$router.go()
+      if(textarea != null && text_box != null && dear_box != null && open_date_box != null) {
+        alert('편지 작성이 완료되었습니다.')
+        this.$router.go()
+      } else {
+        alert('다시 확인해 주세요.')
+      }
     }
   }
 })
