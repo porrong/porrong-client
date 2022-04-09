@@ -18,7 +18,9 @@
               </div>
               <div id = "open_date">
                 <p>OPEN DATE</p>
-                <div class="text_box" id="open_date_box"/>
+                <div class="text_box" id="open_date_box">
+                  <input type="date" v-model="date" id="date" class="text_box"/>
+                </div>
               </div>
             </div>
           </div>
@@ -43,19 +45,24 @@
 import { mapMutations, mapState } from 'vuex';
 
 const textarea = document.getElementById('textarea');
-const text_box = document.getElementById('text_box');
 const dear_box = document.getElementById('dear_box');
-const open_date_box = document.getElementById('open_date_box');
+const email_box = document.getElementById('email_box');
+const date_box = document.getElementById('date');
 
 
 export default ({
+  data() {
+    return {
+      date: ''
+    }
+  },
   computed: {
     ...mapState(['isShowModal'])
   },
   methods: {
     ...mapMutations(['SET_OPEN_MODAL']),
     btn_click: function() {
-      if(textarea != null && text_box != null && dear_box != null && open_date_box != null) {
+      if(1/* null 체크하기 */) {
         alert('편지 작성이 완료되었습니다.')
         this.$router.go()
       } else {
@@ -123,38 +130,26 @@ textarea::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 .add_info {
-  margin: 0 auto;
-
-  width: 590px;
+  width: 100%;
   height: 46px;
   left: 388px;
   top: 542px;
 
   display: flex;
-}
-#dear {
- margin-right: 25px; 
+  justify-content: space-between;
 }
 .text_box {
-  margin: 0 auto;
-
+  width: 150px;
   outline:none;
   border:none;
   height: 27px;
-  
   background: #FFFDF8;
 }
-#email {
-  margin-right: 45px;
-}
 #dear_box {
-  width: 204px;
+  width: 180px;
 }
 #email_box {
-  width: 215px;
-}
-#open_date_box {
-  width: 101px;
+  width: 200px;
 }
 .button_container {
   display: flex;
