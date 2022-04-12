@@ -7,8 +7,11 @@
       <p>탈퇴하기</p>
     </div>
     <div class="itemContainer">
-      <ItemBox v-for="data in 10" :key="data">
+      <WriteItemBox>
         <WriteLetterModal/>
+      </WriteItemBox>
+      <ItemBox v-for="data in 10" :key="data">
+
       </ItemBox>
     </div>
   </div>
@@ -17,11 +20,13 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import WriteItemBox from "../components/WriteItemBox.vue";
 import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
 
 export default {
   components: {
+    WriteItemBox,
     ItemBox,
     WriteLetterModal
   },
