@@ -59,6 +59,10 @@ export default ({
   methods: {
     ...mapMutations(['SET_OPEN_MODAL']),
     btn_click: function() {
+      console.log(this.textarea)
+      console.log(this.dear_box)
+      console.log(this.email_box)
+      console.log(this.date_box)
       if(this.isNotEmpty(this.textarea) && this.isNotEmpty(this.dear_box) && this.isNotEmpty(this.email_box) && this.isNotEmpty(this.date_box)) {
         alert('편지 작성이 완료되었습니다!')
         this.$router.go()
@@ -67,7 +71,7 @@ export default ({
       }
     },
     isNotEmpty: function(value) {
-      if(value != '' || value != ' ' || value != null) {
+      if(value != '' && value != ' ' && value != null) {
         return true
       }
       else false
