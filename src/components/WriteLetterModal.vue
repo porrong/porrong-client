@@ -5,21 +5,21 @@
           <div class = "text">
             <div id = "message">
               <p>YOUR MESSAGE:</p>
-              <textarea class="textarea" placeholder="편지를 작성해 주세요" maxlength="16000"/>
+              <textarea class="textarea" placeholder="편지를 작성해 주세요" maxlength="16000" v-model="textarea"/>
             </div>
             <div class = "add_info">
               <div id = "dear">
                 <p>DEAR</p>
-                <input class="text_box" id="dear_box" type="text">
+                <input class="text_box" id="dear_box" type="text" v-model="dear_box">
               </div>
               <div id = "email">
                 <p>EMAIL</p>
-                <input class="text_box" id="email_box" type="email">
+                <input class="text_box" id="email_box" type="email" v-model="email_box">
               </div>
               <div id = "open_date">
                 <p>OPEN DATE</p>
                 <div class="text_box" id="open_date_box">
-                  <input type="date" v-model="date" id="date" class="text_box"/>
+                  <input type="date" id="date" class="text_box" v-model="date_box"/>
                 </div>
               </div>
             </div>
@@ -44,16 +44,13 @@
 <script>
 import { mapMutations, mapState } from 'vuex';
 
-const textarea = document.getElementById('textarea');
-const dear_box = document.getElementById('dear_box');
-const email_box = document.getElementById('email_box');
-const date_box = document.getElementById('date');
-
-
 export default ({
   data() {
     return {
-      date: ''
+      textarea: null,
+      dear_box: null,
+      email_box: null,
+      date_box: null,
     }
   },
   computed: {
@@ -62,12 +59,18 @@ export default ({
   methods: {
     ...mapMutations(['SET_OPEN_MODAL']),
     btn_click: function() {
-      if(1/* null 체크하기 */) {
-        alert('편지 작성이 완료되었습니다.')
+      if(this.isNotEmpty(this.textarea) && this.isNotEmpty(this.dear_box) && this.isNotEmpty(this.email_box) && this.isNotEmpty(this.date_box)) {
+        alert('편지 작성이 완료되었습니다!')
         this.$router.go()
       } else {
-        alert('다시 확인해 주세요.')
+        alert('다시 확인해 주세요!')
       }
+    },
+    isNotEmpty: function(value) {
+      if(value != '' || value != ' ' || value != null) {
+        return true
+      }
+      else false
     }
   }
 })
