@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div class = "box" v-if="isShowModal">
+    <div class = "box" v-if="isShowWriteLetterModal">
         <div id="letter_box">
           <div class = "text">
             <div id = "message">
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class = "button_container">
-            <div class = "button cancel" @click.prevent="SET_OPEN_MODAL(false)">
+            <div class = "button cancel" @click.prevent="SET_OPEN_WRITE_MODAL(false)">
               <div class = "button_text">
                 <p>작성 취소</p>
               </div>
@@ -54,15 +54,11 @@ export default ({
     }
   },
   computed: {
-    ...mapState(['isShowModal'])
+    ...mapState(['isShowWriteLetterModal'])
   },
   methods: {
-    ...mapMutations(['SET_OPEN_MODAL']),
+    ...mapMutations(['SET_OPEN_WRITE_MODAL']),
     btn_click: function() {
-      console.log(this.textarea)
-      console.log(this.dear_box)
-      console.log(this.email_box)
-      console.log(this.date_box)
       if(this.isNotEmpty(this.textarea) && this.isNotEmpty(this.dear_box) && this.isNotEmpty(this.email_box) && this.isNotEmpty(this.date_box)) {
         alert('편지 작성이 완료되었습니다!')
         this.$router.go()

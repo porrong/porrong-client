@@ -1,5 +1,5 @@
 <template>
-  <div class="item_box" @click.prevent="SET_OPEN_MODAL(true)">
+  <div class="item_box" @click.prevent="SET_OPEN_WRITE_MODAL(true)">
     <div class="image">
       <img src="../assets/letterpaper.svg"/>
     </div>
@@ -11,7 +11,7 @@
 import { mapMutations } from 'vuex'
   export default {
     methods: {
-      ...mapMutations(['SET_OPEN_MODAL'])
+      ...mapMutations(['SET_OPEN_WRITE_MODAL'])
     }
   }
 </script>

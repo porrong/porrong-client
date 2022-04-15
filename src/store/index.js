@@ -1,18 +1,22 @@
-import Vuex from 'vuex'
+import Vuex from "vuex";
 
 const state = {
-    isShowModal: false
-}
+  isShowWriteLetterModal: false,
+  isShowReadLetterModal: false,
+};
 
 const mutations = {
-    SET_OPEN_MODAL(state, toggle) {
-        state.isShowModal = toggle
-    }
-}
+  SET_OPEN_WRITE_MODAL(state, toggle) {
+    state.isShowWriteLetterModal = toggle;
+  },
+  SET_OPEN_READ_MODAL(state, toggle) {
+    state.isShowReadLetterModal = toggle;
+  },
+};
 
 const store = new Vuex.Store({
-    state,
-    mutations
-})
+  state,
+  mutations,
+});
 
-export default store
+export default store;
