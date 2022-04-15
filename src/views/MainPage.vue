@@ -8,38 +8,28 @@
     </div>
     <div class="itemContainer">
       <WriteItemBox>
-        <WriteLetterModal/>
       </WriteItemBox>
-      <ItemBox v-for="data in 10" :key="data">
-
+      <ItemBox >
       </ItemBox>
     </div>
   </div>
   <write-letter-modal />
+  <read-letter-modal/>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
 import WriteItemBox from "../components/WriteItemBox.vue";
 import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
+import ReadLetterModal from "../components/ReadLetterModal.vue";
 
 export default {
   components: {
     WriteItemBox,
     ItemBox,
-    WriteLetterModal
+    WriteLetterModal,
+    ReadLetterModal
   },
-  computed: {
-    ...mapState({
-      'isShowModal' : true
-    })
-  },
-  methos: {
-    ...mapMutations({
-      SET_OPEN_MODAL: 'SET_OPEN_MODAL'
-    })
-  }
 };
 </script>
 
