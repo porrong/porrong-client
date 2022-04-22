@@ -1,12 +1,21 @@
 <template>
-  <div class="item_box">
+  <div class="item_box" @click.prevent='SET_OPEN_READ_MODAL(true)'>
       <div>
           <img src="../assets/lock.svg">
       </div>
   </div>
 </template>
 
-<style scoped>
+<script>
+import { mapMutations } from 'vuex'
+  export default {
+    methods: {
+      ...mapMutations(['SET_OPEN_READ_MODAL']),
+    }
+  }
+</script>
+
+<style>
 .item_box {
   position: relative;
   width: 240px;
