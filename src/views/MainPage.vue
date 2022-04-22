@@ -7,10 +7,8 @@
       <p>탈퇴하기</p>
     </div>
     <div class="itemContainer">
-      <WriteItemBox>
-      </WriteItemBox>
-      <ItemBox >
-      </ItemBox>
+      <WriteItemBox/>
+      <ItemBox/>
     </div>
   </div>
   <write-letter-modal />
