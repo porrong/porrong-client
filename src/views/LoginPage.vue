@@ -11,7 +11,7 @@
         <p>"포롱"</p>
       </div>
     </div>
-    <div class="kakaooauth">
+    <div class="kakaooauth" @click="login">
       <div id="kakaoimage">
         <img src="../assets/kakaologin.svg" />
       </div>
@@ -21,6 +21,29 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+import router from '@/router';
+
+export default {
+  methods: {
+    login() {
+      axios.get('http://localhost:8989/kakao/code')
+      .then(code_res => {
+        console.log("code : " + code_res.data)
+        window.location.href=code_res.data;
+      })
+      .catch(error => {
+        console.log(error);
+        alert('로그인에 실패하였습니다.');
+        router.go(this);
+      })
+    }
+  }
+}
+</script>
+
 
 <style>
 .container {
