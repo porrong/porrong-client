@@ -3,7 +3,7 @@
     <div id="logo">
       <img src="../assets/logo.svg" />
     </div>
-    <div id="withdrawal">
+    <div id="withdrawal" @click="deleteUser">
       <p>탈퇴하기</p>
     </div>
     <div class="itemContainer">
@@ -20,6 +20,8 @@ import WriteItemBox from "../components/WriteItemBox.vue";
 import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
 import ReadLetterModal from "../components/ReadLetterModal.vue";
+import axios from 'axios'
+import router from '@/router';
 
 export default {
   components: {
@@ -28,6 +30,21 @@ export default {
     WriteLetterModal,
     ReadLetterModal
   },
+  methods: {
+    deleteUser() {
+      axios.delete('http://localhost:8989/user', {
+        headers: {
+          "Authorization": 'Bearer ${accessToken}'
+        }
+      }).then((res) => {
+        console.log(res.data);
+        router.go('/');
+      }).catch(err => {
+        alert('회원탈퇴를 할 수 없습니다.');
+        console.log(err)
+      })
+    }
+  }
 };
 </script>
 
