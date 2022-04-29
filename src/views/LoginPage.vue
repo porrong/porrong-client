@@ -31,7 +31,6 @@ export default {
     login() {
       axios.get('http://localhost:8989/kakao/code')
       .then(code_res => {
-        console.log("code : " + code_res.data)
         window.location.href=code_res.data;
       })
       .catch(error => {
