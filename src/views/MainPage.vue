@@ -32,13 +32,15 @@ export default {
   },
   methods: {
     deleteUser() {
-      axios.delete('http://localhost:8989/user', {
+      axios.delete(axios.defaults.baseURL + '/user', {
         headers: {
-          "Authorization": 'Bearer ${accessToken}'
+          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
         }
       }).then((res) => {
         console.log(res.data);
-        router.go('/');
+        router.push('/');
+        alert('회원 정보가 삭제되었습니다.');
+        localStorage.clear;
       }).catch(err => {
         alert('회원탈퇴를 할 수 없습니다.');
         console.log(err)
