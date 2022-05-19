@@ -7,17 +7,19 @@ export default ({
         const url = window.location.search;
         const code = url.replace('?code=','');
 
-        axios.post('http://localhost:8989/user', {
+        axios.post(axios.defaults.baseURL + '/user', {
             "code" : code
         })
         .then(res => {
             console.log(res.data);
+            localStorage.setItem("access-token", res.data.access_token) //localStorage에 token 저장
             router.push('/main'); //로그인에 성공한 경우 /main으로 이동
+            
         }).catch(error => {
             console.log(error.message);
             router.push('/');
             alert('로그인에 실패하였습니다.');
         });
-    }
+    },
 })
 </script>
