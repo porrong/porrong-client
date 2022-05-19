@@ -27,9 +27,12 @@ import axios from 'axios'
 import router from '@/router';
 
 export default {
+  mounted() {
+    localStorage.removeItem("access-token");
+  },
   methods: {
     login() {
-      axios.get('http://localhost:8989/kakao/code')
+      axios.get(axios.defaults.baseURL + '/kakao/code')
       .then(code_res => {
         window.location.href=code_res.data;
       })
