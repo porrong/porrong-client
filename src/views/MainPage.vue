@@ -8,7 +8,7 @@
     </div>
     <div class="itemContainer">
       <WriteItemBox/>
-      <ItemBox/>
+      <ItemBox v-for="data in totalElements" :key="data"/>
     </div>
   </div>
   <write-letter-modal />
@@ -20,7 +20,8 @@ import WriteItemBox from "../components/WriteItemBox.vue";
 import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
 import ReadLetterModal from "../components/ReadLetterModal.vue";
-import axios from 'axios'
+import axios from 'axios';
+import { mapState, mapMutations } from 'vuex'
 import router from '@/router';
 
 export default {
@@ -30,13 +31,28 @@ export default {
     WriteLetterModal,
     ReadLetterModal
   },
+  computed: {
+    ...mapState(['letters', 'totalElements'])
+  },
   mounted() {
+    axios.get(axios.defaults.baseURL + '/letter', {
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
+        }
+    }).then((res) => {
+      console.log(res.data);
+
+      this.SET_TOTAL_ELEMENTS(res.data.total_elements);
+      this.SET_LETTERS(res.data.letters);
+    })
+
     if(localStorage.getItem("access-token") == null) {
       router.push('/');
       alert('로그인이 필요합니다');
     }
   },
   methods: {
+    ...mapMutations(['SET_TOTAL_ELEMENTS', 'SET_LETTERS']),
     deleteUser() {
       axios.delete(axios.defaults.baseURL + '/user', {
         headers: {
@@ -51,7 +67,7 @@ export default {
         alert('회원탈퇴를 할 수 없습니다.');
         console.log(err)
       })
-    }
+    },
   }
 };
 </script>
@@ -82,7 +98,6 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  height: 440px;
   gap: 15px;
   overflow: auto;
 }
