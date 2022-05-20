@@ -30,6 +30,12 @@ export default {
     WriteLetterModal,
     ReadLetterModal
   },
+  mounted() {
+    if(localStorage.getItem("access-token") == null) {
+      router.push('/');
+      alert('로그인이 필요합니다');
+    }
+  },
   methods: {
     deleteUser() {
       axios.delete(axios.defaults.baseURL + '/user', {
