@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { mapMutations, mapState } from 'vuex';
 
 export default ({
@@ -60,8 +61,25 @@ export default ({
     ...mapMutations(['SET_OPEN_WRITE_MODAL']),
     btn_click: function() {
       if(this.isNotEmpty(this.textarea) && this.isNotEmpty(this.dear_box) && this.isNotEmpty(this.email_box) && this.isNotEmpty(this.date_box)) {
-        alert('편지 작성이 완료되었습니다!')
-        this.$router.go()
+        axios.post(axios.defaults.baseURL + '/letter', {
+            "content" : this.textarea,
+            "dear" : this.dear_box,
+            "email" : this.email_box,
+            "released_date" : this.date_box
+        }, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("access-token")}`
+          }
+        })
+        .then(res => {
+          console.log(res.data);
+          alert('편지 작성이 완료되었습니다!')
+          this.$router.go()
+        })
+        .catch(error => {
+          console.log(error.data)
+        })
+
       } else {
         alert('다시 확인해 주세요!')
       }
