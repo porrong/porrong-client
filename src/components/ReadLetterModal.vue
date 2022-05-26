@@ -1,19 +1,19 @@
 <template>
     <transition name="modal">
-        <div class="box" v-if="isShowReadLetterModal">
+        <div class="box" v-if="isShowReadLetterModal" @click.prevent="getDetails">
             <div class="letter_box">
               <div class="date">
-                <p>작성일 :</p><br>
-                <p>개봉가능일 :</p>
+                <p>작성일 : {{createdAt}}</p><br>
+                <p>개봉가능일 : {{releaseDate}}</p> 
               </div>
               <img src="../assets/exportemail.svg" class="exportemail_image">
               <img src="../assets/trashcan.svg" class="trashcan_image">
               <div class="dear">
-                <p>DEAR.</p>
+                <p>DEAR. {{dear}}</p>
               </div>
               <div class="content_box">
                 <div id="content">
-
+                  {{content}}
                 </div>
               </div>
               <div class="close_button" @click.prevent="SET_OPEN_READ_MODAL(false)">
@@ -25,18 +25,47 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapMutations, mapState } from 'vuex';
+import router from '@/router';
 
 export default ({
+  props: {
+    letter: Object,
+  },
   data() {
     return {
+      dear: '',
+      content: '',
+      email: '',
+      createdAt: '',
+      releasedDate: ''
     }
   },
   computed: {
     ...mapState(['isShowReadLetterModal'])
   },
   methods: {
-    ...mapMutations(['SET_OPEN_READ_MODAL'])
+    ...mapMutations(['SET_OPEN_READ_MODAL']),
+    getDetails() {
+      axios.get(axios.defaults.baseURL + `/letter/${this.letter.id}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
+        }
+      }).then((res) => {
+        console.log(res.data);
+
+        this.dear = res.data.dear;
+        this.content = res.data.content;
+        this.email = res.data.email;
+        this.createdAt = res.data.created_at;
+        this.releaseDate = res.data.release_date;
+      }).catch(err => {
+          alert('게시글을 찾을 수 없습니다.');
+          console.log(err)
+          router.push('/main');
+      })
+    }
   }
 })
 </script>
@@ -64,7 +93,6 @@ export default ({
 }
 .date > p {
   position: absolute;
-  width: 75px;
   height: 16px;
   left: 470px;
 
@@ -96,7 +124,6 @@ export default ({
 }
 .dear > p {
   position: absolute;
-  width: 54px;
   height: 24px;
   left: 54px;
   top: 54px;
