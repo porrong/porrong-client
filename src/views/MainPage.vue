@@ -8,11 +8,11 @@
     </div>
     <div class="itemContainer">
       <WriteItemBox/>
-      <ItemBox v-for="data in totalElements" :key="data"/>
+      <ItemBox v-for="letter of letters" :key="letter" @click="choiceLetter = letter" />
     </div>
   </div>
   <write-letter-modal />
-  <read-letter-modal/>
+  <read-letter-modal :letter="choiceLetter"/>
 </template>
 
 <script>
@@ -21,7 +21,7 @@ import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
 import ReadLetterModal from "../components/ReadLetterModal.vue";
 import axios from 'axios';
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 import router from '@/router';
 
 export default {
@@ -31,8 +31,12 @@ export default {
     WriteLetterModal,
     ReadLetterModal
   },
-  computed: {
-    ...mapState(['letters', 'totalElements'])
+  data() {
+    return {
+      letters: [],
+      totalElements: 0,
+      choiceLetter: {}
+    }
   },
   mounted() {
     axios.get(axios.defaults.baseURL + '/letter', {
@@ -42,8 +46,10 @@ export default {
     }).then((res) => {
       console.log(res.data);
 
-      this.SET_TOTAL_ELEMENTS(res.data.total_elements);
-      this.SET_LETTERS(res.data.letters);
+      this.totalElements = res.data.total_elements;
+      this.letters = res.data.letters;
+      console.log(this.letters)
+      
     })
 
     if(localStorage.getItem("access-token") == null) {
@@ -68,6 +74,9 @@ export default {
         console.log(err)
       })
     },
+    aasd(a) {
+      console.log(a)
+    }
   }
 };
 </script>
