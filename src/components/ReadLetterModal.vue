@@ -1,73 +1,80 @@
 <template>
-    <transition name="modal">
-        <div class="box" v-if="isShowReadLetterModal" @click.prevent="getDetails">
-            <div class="letter_box">
-              <div class="date">
-                <p>작성일 : {{createdAt}}</p><br>
-                <p>개봉가능일 : {{releaseDate}}</p> 
-              </div>
-              <img src="../assets/exportemail.svg" class="exportemail_image">
-              <img src="../assets/trashcan.svg" class="trashcan_image">
-              <div class="dear">
-                <p>DEAR. {{dear}}</p>
-              </div>
-              <div class="content_box">
-                <div id="content">
-                  {{content}}
-                </div>
-              </div>
-              <div class="close_button" @click.prevent="SET_OPEN_READ_MODAL(false)">
-                  <p>닫기</p>
-              </div>
-            </div>
+  <transition name="modal">
+    <div class="box" v-if="isShowReadLetterModal">
+      <div class="letter_box">
+        <div class="date">
+          <p>작성일 : {{ createdAt }}</p>
+          <br />
+          <p>개봉가능일 : {{ releaseDate }}</p>
         </div>
-    </transition>
+        <img src="../assets/exportemail.svg" class="exportemail_image" />
+        <img src="../assets/trashcan.svg" class="trashcan_image" />
+        <div class="dear">
+          <p>DEAR. {{ dear }}</p>
+        </div>
+        <div class="content_box">
+          <div id="content">
+            {{ content }}
+          </div>
+        </div>
+        <div class="close_button" @click.prevent="SET_OPEN_READ_MODAL(false)">
+          <p>닫기</p>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-import axios from 'axios';
-import { mapMutations, mapState } from 'vuex';
-import router from '@/router';
+import axios from "axios";
+import { mapMutations, mapState } from "vuex";
+import router from "@/router";
 
-export default ({
+export default {
   props: {
     letter: Object,
   },
   data() {
     return {
-      dear: '',
-      content: '',
-      email: '',
-      createdAt: '',
-      releasedDate: ''
-    }
+      dear: "",
+      content: "",
+      email: "",
+      createdAt: "",
+      releasedDate: "",
+    };
   },
   computed: {
-    ...mapState(['isShowReadLetterModal'])
+    ...mapState(["isShowReadLetterModal"]),
+  },
+  watch: {
+    letter: function getDetails() {
+      console.log("hihihi");
+      axios
+        .get(axios.defaults.baseURL + `/letter/${this.letter.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+
+          this.dear = res.data.dear;
+          this.content = res.data.content;
+          this.email = res.data.email;
+          this.createdAt = res.data.created_at;
+          this.releaseDate = res.data.release_date;
+        })
+        .catch((err) => {
+          alert("게시글을 찾을 수 없습니다.");
+          console.log(err);
+          router.push("/main");
+        });
+    },
   },
   methods: {
-    ...mapMutations(['SET_OPEN_READ_MODAL']),
-    getDetails() {
-      axios.get(axios.defaults.baseURL + `/letter/${this.letter.id}`, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
-        }
-      }).then((res) => {
-        console.log(res.data);
-
-        this.dear = res.data.dear;
-        this.content = res.data.content;
-        this.email = res.data.email;
-        this.createdAt = res.data.created_at;
-        this.releaseDate = res.data.release_date;
-      }).catch(err => {
-          alert('게시글을 찾을 수 없습니다.');
-          console.log(err)
-          router.push('/main');
-      })
-    }
-  }
-})
+    ...mapMutations(["SET_OPEN_READ_MODAL"]),
+  },
+};
 </script>
 
 <style>
@@ -81,7 +88,7 @@ export default ({
   width: 657px;
   height: 502px;
   position: relative;
-  background: #FFEDC3;
+  background: #ffedc3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 
@@ -96,7 +103,7 @@ export default ({
   height: 16px;
   left: 470px;
 
-  font-family: 'Red Hat Mono';
+  font-family: "Red Hat Mono";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -120,7 +127,6 @@ export default ({
   height: 25px;
   left: 691px;
   top: 22px;
-
 }
 .dear > p {
   position: absolute;
@@ -128,12 +134,12 @@ export default ({
   left: 54px;
   top: 54px;
 
-  font-family: 'Red Hat Mono';
+  font-family: "Red Hat Mono";
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
 
-color: #000000;
+  color: #000000;
 }
 .content_box {
   position: absolute;
@@ -142,7 +148,7 @@ color: #000000;
   right: 54px;
   top: 100px;
 
-  background: #FFFDF8;
+  background: #fffdf8;
 }
 .close_button {
   position: absolute;
@@ -152,7 +158,7 @@ color: #000000;
   background: rgba(250, 176, 0, 0.3);
   border-radius: 10px;
 
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -163,11 +169,11 @@ color: #000000;
 }
 .close_button > p {
   text-align: center;
-  font-family: 'Red Hat Mono';
+  font-family: "Red Hat Mono";
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
 
-  color: #B47F00;
+  color: #b47f00;
 }
 </style>
