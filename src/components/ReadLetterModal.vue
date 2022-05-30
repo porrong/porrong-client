@@ -8,7 +8,11 @@
           <p>개봉가능일 : {{ releaseDate }}</p>
         </div>
         <img src="../assets/exportemail.svg" class="exportemail_image" />
-        <img src="../assets/trashcan.svg" class="trashcan_image" />
+        <img
+          src="../assets/trashcan.svg"
+          class="trashcan_image"
+          @click.prevent="deleteLetter"
+        />
         <div class="dear">
           <p>DEAR. {{ dear }}</p>
         </div>
@@ -67,12 +71,30 @@ export default {
         .catch((err) => {
           alert("게시글을 찾을 수 없습니다.");
           console.log(err);
-          router.push("/main");
+          router.go("/main");
         });
     },
   },
   methods: {
     ...mapMutations(["SET_OPEN_READ_MODAL"]),
+    deleteLetter() {
+      axios
+        .delete(axios.defaults.baseURL + "/letter/" + `${this.letter.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert("편지가 삭제되었습니다.");
+          this.$store.commit("SET_OPEN_READ_MODAL", false);
+          router.go("/main");
+        })
+        .catch((err) => {
+          alert("편지를 삭제할 수 없습니다.");
+          console.log(err);
+        });
+    },
   },
 };
 </script>
