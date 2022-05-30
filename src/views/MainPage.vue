@@ -116,6 +116,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  height: 450px;
   gap: 15px;
   overflow: auto;
 }
