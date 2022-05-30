@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import router from '@/router';
+import axios from "axios";
+import router from "@/router";
 
 export default {
   mounted() {
@@ -32,20 +32,20 @@ export default {
   },
   methods: {
     login() {
-      axios.get(axios.defaults.baseURL + '/kakao/code')
-      .then(code_res => {
-        window.location.href=code_res.data;
-      })
-      .catch(error => {
-        console.log(error);
-        alert('로그인에 실패하였습니다.');
-        router.go(this);
-      })
-    }
-  }
-}
+      axios
+        .get(axios.defaults.baseURL + "/kakao/code")
+        .then((code_res) => {
+          window.location.href = code_res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("로그인에 실패하였습니다.");
+          router.go(this);
+        });
+    },
+  },
+};
 </script>
-
 
 <style>
 .container {

@@ -7,12 +7,17 @@
       <p>탈퇴하기</p>
     </div>
     <div class="itemContainer">
-      <WriteItemBox/>
-      <ItemBox v-for="letter of letters" :key="letter" @click="choiceLetter = letter" v-bind:letter="letter"/>
+      <WriteItemBox />
+      <ItemBox
+        v-for="letter of letters"
+        :key="letter"
+        @click="choiceLetter = letter"
+        v-bind:letter="letter"
+      />
     </div>
   </div>
   <write-letter-modal />
-  <read-letter-modal :letter="choiceLetter"/>
+  <read-letter-modal :letter="choiceLetter" />
 </template>
 
 <script>
@@ -20,64 +25,68 @@ import WriteItemBox from "../components/WriteItemBox.vue";
 import ItemBox from "../components/ItemBox.vue";
 import WriteLetterModal from "../components/WriteLetterModal.vue";
 import ReadLetterModal from "../components/ReadLetterModal.vue";
-import axios from 'axios';
-import { mapMutations } from 'vuex'
-import router from '@/router';
+import axios from "axios";
+import { mapMutations } from "vuex";
+import router from "@/router";
 
 export default {
   components: {
     WriteItemBox,
     ItemBox,
     WriteLetterModal,
-    ReadLetterModal
+    ReadLetterModal,
   },
   data() {
     return {
       letters: [],
       totalElements: 0,
-      choiceLetter: {}
-    }
+      choiceLetter: {},
+    };
   },
   mounted() {
-    axios.get(axios.defaults.baseURL + '/letter', {
-      headers: {
-          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
-        }
-    }).then((res) => {
-      console.log(res.data);
+    axios
+      .get(axios.defaults.baseURL + "/letter", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
 
-      this.totalElements = res.data.total_elements;
-      this.letters = res.data.letters;
-      console.log(this.letters)
-      
-    })
+        this.totalElements = res.data.total_elements;
+        this.letters = res.data.letters;
+        console.log(this.letters);
+      });
 
-    if(localStorage.getItem("access-token") == null) {
-      router.push('/');
-      alert('로그인이 필요합니다');
+    if (localStorage.getItem("access-token") == null) {
+      router.push("/");
+      alert("로그인이 필요합니다");
     }
   },
   methods: {
-    ...mapMutations(['SET_TOTAL_ELEMENTS', 'SET_LETTERS']),
+    ...mapMutations(["SET_TOTAL_ELEMENTS", "SET_LETTERS"]),
     deleteUser() {
-      axios.delete(axios.defaults.baseURL + '/user', {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
-        }
-      }).then((res) => {
-        console.log(res.data);
-        router.push('/');
-        alert('회원 정보가 삭제되었습니다.');
-        localStorage.clear;
-      }).catch(err => {
-        alert('회원탈퇴를 할 수 없습니다.');
-        console.log(err)
-      })
+      axios
+        .delete(axios.defaults.baseURL + "/user", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          router.push("/");
+          alert("회원 정보가 삭제되었습니다.");
+          localStorage.clear;
+        })
+        .catch((err) => {
+          alert("회원탈퇴를 할 수 없습니다.");
+          console.log(err);
+        });
     },
     aasd(a) {
-      console.log(a)
-    }
-  }
+      console.log(a);
+    },
+  },
 };
 </script>
 
