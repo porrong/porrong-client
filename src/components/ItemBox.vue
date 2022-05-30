@@ -9,6 +9,16 @@
 <script>
 import { mapMutations } from 'vuex'
   export default {
+    props: {
+      letter: Object,
+    },
+    data() {
+      return {
+        isReleased: this.letter.is_relased,
+      }
+    },
+    mounted() {
+    },
     methods: {
       ...mapMutations(['SET_OPEN_READ_MODAL']),
     }

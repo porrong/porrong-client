@@ -8,7 +8,7 @@
     </div>
     <div class="itemContainer">
       <WriteItemBox/>
-      <ItemBox v-for="letter of letters" :key="letter" @click="choiceLetter = letter" />
+      <ItemBox v-for="letter of letters" :key="letter" @click="choiceLetter = letter" v-bind:letter="letter"/>
     </div>
   </div>
   <write-letter-modal />
