@@ -69,7 +69,13 @@ export default {
           this.releaseDate = res.data.release_date;
         })
         .catch((err) => {
-          alert("게시글을 찾을 수 없습니다.");
+          const status = err.response.data.status_code;
+          if(status === 400) {
+            alert("편지를 개봉할 수 없습니다.");
+          }
+          else if(status === 404) {
+            alert("게시글을 찾을 수 없습니다.");
+          }
           console.log(err);
           router.go("/main");
         });
