@@ -1,6 +1,7 @@
 <template>
-  <div class="item_box" @click.prevent="SET_OPEN_READ_MODAL(true)">
+  <div class="item_box">
     <div v-if="this.isReleased">
+      <div @click.prevent="SET_OPEN_READ_MODAL(true)" />
       <p>{{ this.letter.content }}</p>
     </div>
     <div v-else>
