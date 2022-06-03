@@ -52,7 +52,6 @@ export default {
   },
   watch: {
     letter: function getDetails() {
-      console.log("hihihi");
       axios
         .get(axios.defaults.baseURL + `/letter/${this.letter.id}`, {
           headers: {

@@ -52,7 +52,6 @@ export default {
       })
       .then((res) => {
         console.log(res.data);
-
         this.totalElements = res.data.total_elements;
         this.letters = res.data.letters;
         console.log(this.letters);
@@ -82,9 +81,6 @@ export default {
           alert("회원탈퇴를 할 수 없습니다.");
           console.log(err);
         });
-    },
-    aasd(a) {
-      console.log(a);
     },
   },
 };
