@@ -23,7 +23,6 @@ export default {
       isReleased: this.letter.is_released,
     };
   },
-  mounted() {},
   methods: {
     ...mapMutations(["SET_OPEN_READ_MODAL"]),
   },
@@ -49,10 +48,13 @@ export default {
   line-height: 16px;
 }
 .lock {
-  display: flex;
   height: 79px;
-  flex-direction: column;
-
+}
+.lock > img {
+  width : 100%;
+  height: 55px;
+}
+.lock > p {
   font-family: "Red Hat Mono";
   font-style: normal;
   font-weight: 400;
