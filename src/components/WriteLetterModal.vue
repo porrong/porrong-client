@@ -96,7 +96,7 @@ export default {
               content: this.textarea,
               dear: this.dear_box,
               email: this.email_box,
-              released_date: this.date_box,
+              release_date: this.date_box,
             },
             {
               headers: {
